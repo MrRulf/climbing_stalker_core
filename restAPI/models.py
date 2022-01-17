@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Measurement(models.Model):
+class Measurements(models.Model):
     objectID = models.IntegerField()
     xPosition = models.DecimalField(max_digits = 5, decimal_places = 3)
     yPosition = models.DecimalField(max_digits = 5, decimal_places = 3)

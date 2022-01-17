@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from restAPI.models import Measurement
+from restAPI.models import Measurements
 
-class MeasurementSerializer(serializers.HyperlinkedModelSerializer):
+class MeasurementsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Measurement
+        model = Measurements
         fields = ('id', 'objectID', 'xPosition', 'yPosition', 'zPosition', 'xVelocity', 'yVelocity', 'zVelocity', 'xDimension', 'yDimension', 'zDimension', 'timestamp')

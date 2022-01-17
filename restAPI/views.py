@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 
-from restAPI.serializers import MeasurementSerializer
-from restAPI.models import Measurement
+from restAPI.serializers import MeasurementsSerializer
+from restAPI.models import Measurements
 
 
-class MeasurementViewSet(viewsets.ModelViewSet):
-    queryset = Measurement.objects.all().order_by('timestamp')
-    serializer_class = MeasurementSerializer
+class MeasurementsViewSet(viewsets.ModelViewSet):
+    queryset = Measurements.objects.all().order_by('timestamp')
+    serializer_class = MeasurementsSerializer

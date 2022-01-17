@@ -6,7 +6,7 @@ from restAPI import views
 
 
 router = routers.DefaultRouter()
-router.register(r'measurements', views.MeasurementViewSet)
+router.register(r'measurements', views.MeasurementsViewSet)
 
 # Wire up API using automatic URL routing.
 # Additionally including login URLs for browsable API.
