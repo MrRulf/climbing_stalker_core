@@ -1,0 +1,45 @@
+{
+  "title": "Measurement",
+  "type": "object",
+  "required": [
+    "objectID",
+    "xPosition",
+    "yPosition",
+    "zPosition"
+  ],
+  "properties": {
+    "objectID": {
+      "type": "number"
+    },
+    "xPosition": {
+      "type": "number"
+    },
+    "yPosition": {
+      "type": "number"
+    },
+    "zPosition": {
+      "type": "number"
+    },
+    "xVelocity": {
+      "type": "number"
+    },
+    "yVelocity": {
+      "type": "number"
+    },
+    "zVelocity": {
+      "type": "number"
+    },
+    "xDimension": {
+      "type": "number"
+    },
+    "yDimension": {
+      "type": "number"
+    },
+    "zDimension": {
+      "type": "number"
+    },
+    "timestamp": {
+      "type": "number"
+    }
+  }
+}
