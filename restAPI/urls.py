@@ -1,16 +1,13 @@
-from django.urls import path, include
-
-from rest_framework import routers
+from django.urls import path
 
 from restAPI import views
 
 
-router = routers.DefaultRouter()
-router.register(r'measurements', views.MeasurementsViewSet)
-
-# Wire up API using automatic URL routing.
-# Additionally including login URLs for browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('measurementsSets/latest/', views.measurementsSetsLatest),
+    path('measurementsSets/<int:pk>/', views.measurementsSetsId),
+    path('measurementsSets/', views.measurementsSets),
+    path('measurements/latest/', views.measurementsLatest),
+    path('measurements/<int:pk>/', views.measurementsId),
+    path('measurements/', views.measurements)
 ]

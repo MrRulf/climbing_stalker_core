@@ -1,23 +1,24 @@
 import pyzed.sl as sl
 
+from restAPI.cameras.camera import Camera
+
 OBJECT_DETECTED_STARTING_FROM_PERCENT = 40
 CONFIDENCE_THRESHOLD = 50
 MAXIMUM_DISTANCE_IN_METERS = 30
-MEASUREMENTS_PER_SECOND = 15
 ACCURACY = 5
 
 
-class zed2():
+class Zed2(Camera):
 
     zed = None
     init_params = None
 
-    def __init__(self):
+    def __init__(self, measurements_per_second):
         self.zed = sl.Camera()
 
         self.init_params = sl.InitParameters()
         self.init_params.camera_resolution = sl.RESOLUTION.HD1080
-        self.init_params.camera_fps = MEASUREMENTS_PER_SECOND
+        self.init_params.camera_fps = measurements_per_second
         self.init_params.coordinate_units = sl.UNIT.METER
         self.init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP
         self.init_params.depth_mode = sl.DEPTH_MODE.ULTRA
@@ -68,5 +69,4 @@ class zed2():
 
                     if (returned_state == sl.ERROR_CODE.SUCCESS and objects.is_new):
                         obj_array = objects.object_list
-                        # Write into SQLlite Database
-                        print(obj_array)
+                        self.write_to_database(obj_array)
