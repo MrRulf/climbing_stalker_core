@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 import time
 
@@ -6,6 +6,10 @@ from restAPI.models import MeasurementsSets, Measurements
 
 
 class Camera(ABC):
+
+    @abstractmethod
+    def start(self):
+        pass
 
     def write_to_database(obj_array):
         measurementsSet = MeasurementsSets.objects.create(

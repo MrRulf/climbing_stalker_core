@@ -25,12 +25,6 @@ class Zed2(Camera):
         self.init_params.depth_maximum_distance = MAXIMUM_DISTANCE_IN_METERS
 
 
-    def clean_up(self):
-        self.zed.disable_object_detection()
-        self.zed.disable_positional_tracking()
-        self.zed.close()
-
-
     def start(self):
         status = self.zed.open(self.init_params)
         if status != sl.ERROR_CODE.SUCCESS:
@@ -62,6 +56,7 @@ class Zed2(Camera):
 
         self.clean_up()
 
+
     def run(self, objects, obj_runtime_param, runtime_params):
         while(1):
             if self.zed.grab(runtime_params) == sl.ERROR_CODE.SUCCESS:
@@ -70,3 +65,9 @@ class Zed2(Camera):
                     if (returned_state == sl.ERROR_CODE.SUCCESS and objects.is_new):
                         obj_array = objects.object_list
                         self.write_to_database(obj_array)
+
+
+    def clean_up(self):
+        self.zed.disable_object_detection()
+        self.zed.disable_positional_tracking()
+        self.zed.close()
