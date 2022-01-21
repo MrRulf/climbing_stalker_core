@@ -35,6 +35,18 @@ def measurements_sets_id(request, pk):
         return JsonResponse(serializer.data)
 
 
+def measurements_sets_id_details(request, pk):
+    basename = 'measurements-sets-id-details'
+    try:
+        queryset = Measurements.objects.all().filter(measurements_set=pk)
+    except (MeasurementsSets.DoesNotExist, Measurements.DoesNotExist):
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = MeasurementsSerializer(queryset)
+        return JsonResponse(serializer.data)
+
+
 def measurements_sets(request):
     basename = 'measurements-sets'
     try:
@@ -45,10 +57,6 @@ def measurements_sets(request):
     if request.method == 'GET':
         serializer = MeasurementsSetsSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
-
-    elif request.method == 'DELETE':
-        queryset.delete()
-        return HttpResponse(status=204)
 
     return HttpResponse(status=405)
 
@@ -87,6 +95,8 @@ def measurements_id(request, pk):
         serializer = MeasurementsSerializer(queryset)
         return JsonResponse(serializer.data)
 
+    return HttpResponse(status=405)
+
 
 def measurements(request):
     basename = 'measurements'
@@ -98,9 +108,5 @@ def measurements(request):
     if request.method == 'GET':
         serializer = MeasurementsSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
-
-    elif request.method == 'DELETE':
-        queryset.delete()
-        return HttpResponse(status=204)
 
     return HttpResponse(status=405)
