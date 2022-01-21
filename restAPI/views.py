@@ -1,85 +1,88 @@
 from django.http import HttpResponse, JsonResponse
-from rest_framework import viewsets
 
 from restAPI.serializers import MeasurementsSetsSerializer, MeasurementsSerializer
 from restAPI.models import Measurements, MeasurementsSets
 
 # makes migrations crash
-def measurementsSetsLatest(request):
+
+
+def measurements_sets_latest(request):
     basename = 'measurements-sets-latest'
-    try: 
+    try:
         queryset = MeasurementsSets.objects.all()
-        queryset = queryset.filter(complete = True)
+        queryset = queryset.filter(complete=True)
         queryset = queryset.order_by('timestamp')
-        queryset = queryset.first()
+        queryset = queryset.filter(timestamp=queryset.first().timestamp)
     except MeasurementsSets.DoesNotExist:
-        return HttpResponse(status = 404)
+        return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = MeasurementsSetsSerializer(queryset)
-        return JsonResponse(serializer.data)
-    
-    return HttpResponse(status = 405)
+        serializer = MeasurementsSetsSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    return HttpResponse(status=405)
 
 
-def measurementsSetsId(request, pk):
+def measurements_sets_id(request, pk):
     basename = 'measurements-sets-id'
     try:
-        queryset = MeasurementsSets.objects.get(pk = pk)
+        queryset = MeasurementsSets.objects.get(pk=pk)
     except MeasurementsSets.DoesNotExist:
-        return HttpResponse(status = 404)
-    
+        return HttpResponse(status=404)
+
     if request.method == 'GET':
         serializer = MeasurementsSetsSerializer(queryset)
         return JsonResponse(serializer.data)
 
 
-def measurementsSets(request):
+def measurements_sets(request):
     basename = 'measurements-sets'
     try:
         queryset = MeasurementsSets.objects.all()
     except MeasurementsSets.DoesNotExist:
-        return HttpResponse(status = 404)
+        return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = MeasurementsSetsSerializer(queryset, many = True)
-        return JsonResponse(serializer.data, safe = False)
+        serializer = MeasurementsSetsSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'DELETE':
         queryset.delete()
-        return HttpResponse(status = 204)
-    
-    return HttpResponse(status = 405)
+        return HttpResponse(status=204)
+
+    return HttpResponse(status=405)
 
 
-def measurementsLatest(request):
+def measurements_latest(request):
     basename = 'measurements-latest'
-    try: 
-        measurementsSetIdLatest = MeasurementsSets.objects.all()
-        measurementsSetIdLatest = measurementsSetIdLatest.filter(complete = True)
-        measurementsSetIdLatest = measurementsSetIdLatest.order_by('timestamp')
-        measurementsSetIdLatest = measurementsSetIdLatest.first()
-        measurementsSetIdLatest = measurementsSetIdLatest.id
+    try:
+        measurements_set_id_latest = MeasurementsSets.objects.all()
+        measurements_set_id_latest = measurements_set_id_latest.filter(
+            complete=True)
+        measurements_set_id_latest = measurements_set_id_latest.order_by(
+            'timestamp')
+        measurements_set_id_latest = measurements_set_id_latest.first()
+        measurements_set_id_latest = measurements_set_id_latest.id
         queryset = Measurements.objects.all()
-        queryset = queryset.filter(measurementsSet = measurementsSetIdLatest)
+        queryset = queryset.filter(measurementsSet=measurements_set_id_latest)
         queryset = queryset.order_by('timestamp')
     except (MeasurementsSets.DoesNotExist, Measurements.DoesNotExist):
-        return HttpResponse(status = 404)
+        return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = MeasurementsSerializer(queryset, many = True)
-        return JsonResponse(serializer.data, safe = False)
-    
-    return HttpResponse(status = 405)
+        serializer = MeasurementsSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    return HttpResponse(status=405)
 
 
-def measurementsId(request, pk):
+def measurements_id(request, pk):
     basename = 'measurements-id'
     try:
-        queryset = Measurements.objects.get(pk = pk)
+        queryset = Measurements.objects.get(pk=pk)
     except Measurements.DoesNotExist:
-        return HttpResponse(status = 404)
-    
+        return HttpResponse(status=404)
+
     if request.method == 'GET':
         serializer = MeasurementsSerializer(queryset)
         return JsonResponse(serializer.data)
@@ -90,14 +93,14 @@ def measurements(request):
     try:
         queryset = Measurements.objects.all()
     except Measurements.DoesNotExist:
-        return HttpResponse(status = 404)
+        return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = MeasurementsSerializer(queryset, many = True)
-        return JsonResponse(serializer.data, safe = False)
+        serializer = MeasurementsSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'DELETE':
         queryset.delete()
-        return HttpResponse(status = 204)
-    
-    return HttpResponse(status = 405)
+        return HttpResponse(status=204)
+
+    return HttpResponse(status=405)

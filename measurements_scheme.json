@@ -1,44 +1,43 @@
 {
-  "title": "Measurement",
+  "title": "Measurements",
   "type": "object",
   "required": [
-    "objectID",
-    "xPosition",
-    "yPosition",
-    "zPosition"
+    "x_position",
+    "y_position",
+    "z_position"
   ],
   "properties": {
-    "objectID": {
+    "x_position": {
       "type": "number"
     },
-    "xPosition": {
+    "y_position": {
       "type": "number"
     },
-    "yPosition": {
+    "z_position": {
       "type": "number"
     },
-    "zPosition": {
+    "x_velocity": {
       "type": "number"
     },
-    "xVelocity": {
+    "y_velocity": {
       "type": "number"
     },
-    "yVelocity": {
+    "z_velocity": {
       "type": "number"
     },
-    "zVelocity": {
+    "x_dimension": {
       "type": "number"
     },
-    "xDimension": {
+    "y_dimension": {
       "type": "number"
     },
-    "yDimension": {
-      "type": "number"
-    },
-    "zDimension": {
+    "z_dimension": {
       "type": "number"
     },
     "timestamp": {
+      "type": "number"
+    },
+    "measurements_set": {
       "type": "number"
     }
   }

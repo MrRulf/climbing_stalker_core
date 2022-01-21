@@ -1,0 +1,20 @@
+{
+    "title": "MeasurementsSets",
+    "type": "object",
+    "required": [
+        "object_id",
+        "complete",
+        "timestamp"
+    ],
+    "properties": {
+        "object_id": {
+            "type": "number"
+        },
+        "complete": {
+            "type": "boolean"
+        },
+        "timestamp": {
+            "type": "number"
+        }
+    }
+}
